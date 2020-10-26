@@ -16,7 +16,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/nxadm/tail/ratelimiter"
+	"github.com/f1shl3gs/tail/ratelimiter"
 )
 
 var (
@@ -208,6 +208,7 @@ func (tail *Tail) reopen() error {
 	return nil
 }
 
+// todo: add a buffer and read multi lines at a call
 func (tail *Tail) readLine() (string, error) {
 	tail.lock.Lock()
 	line, err := tail.reader.ReadString('\n')

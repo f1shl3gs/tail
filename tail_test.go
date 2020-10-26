@@ -15,7 +15,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nxadm/tail/ratelimiter"
+	"github.com/f1shl3gs/tail/ratelimiter"
 )
 
 func init() {
@@ -29,7 +29,7 @@ func init() {
 func TestMain(m *testing.M) {
 	// Use a smaller poll duration for faster test runs. Keep it below
 	// 100ms (which value is used as common delays for tests)
-	POLL_DURATION = 5 * time.Millisecond
+	PollDuration = 5 * time.Millisecond
 	os.Exit(m.Run())
 }
 

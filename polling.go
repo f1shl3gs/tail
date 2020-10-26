@@ -21,7 +21,7 @@ func newPollingFileWatcher(filename string) *pollingFileWatcher {
 	return fw
 }
 
-var POLL_DURATION time.Duration
+var PollDuration time.Duration
 
 func (fw *pollingFileWatcher) blockUntilExists(ctx context.Context) error {
 	for {
@@ -31,7 +31,7 @@ func (fw *pollingFileWatcher) blockUntilExists(ctx context.Context) error {
 			return err
 		}
 		select {
-		case <-time.After(POLL_DURATION):
+		case <-time.After(PollDuration):
 			continue
 		case <-ctx.Done():
 			return nil
@@ -62,7 +62,7 @@ func (fw *pollingFileWatcher) changeEvents(ctx context.Context, pos int64) (*fil
 			default:
 			}
 
-			time.Sleep(POLL_DURATION)
+			time.Sleep(PollDuration)
 			fi, err := os.Stat(fw.filename)
 			if err != nil {
 				// Windows cannot delete a file if a handle is still open (tail keeps one open)
@@ -111,5 +111,5 @@ func (fw *pollingFileWatcher) changeEvents(ctx context.Context, pos int64) (*fil
 }
 
 func init() {
-	POLL_DURATION = 250 * time.Millisecond
+	PollDuration = 250 * time.Millisecond
 }
